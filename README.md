@@ -2,6 +2,8 @@
 
 Determines all valid combinations of addition, subtraction, multiplication, and division within a specified range for given examples. Outputs are in the format x * a // b + c.  
 
+Run for "input.txt" with `python main.py`  
+
 Run with `python main.py [optional file] [optional maximum integer searched] [optional testing mode]`  
 Run premade test cases `python main.py x x x`  
 
