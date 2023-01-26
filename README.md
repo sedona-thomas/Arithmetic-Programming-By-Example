@@ -3,7 +3,7 @@
 Determines all valid combinations of addition, subtraction, multiplication, and division within a specified range for given examples. Outputs are in the format x * a // b + c.  
 
 Run with `python main.py [optional file] [optional maximum integer searched] [optional testing mode]`  
-Run premade test cases `python main.py x 10 x`  
+Run premade test cases `python main.py x x x`  
 
 Parameters:
 - File: contains lines with two integers separated by a space where the first integer is an input and the second integer is the corresponding output  
