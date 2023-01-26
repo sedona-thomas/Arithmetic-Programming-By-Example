@@ -10,7 +10,7 @@ import sys
 
 class BruteForcePBE(object):
 
-    def __init__(self, file: str = "inputs.txt", limit: int = 100):
+    def __init__(self, file: str = "inputs.txt", limit: int = 10):
         self.examples = {}
         self.solutions = set()
         self.valid = True
