@@ -52,13 +52,13 @@ class BruteForcePBE(object):
         return "x * {:4} // {:4} + {:4}".format(*solution)
 
 def run():
-    solver = BruteForcePBE() if len(sys.argv) < 2 else BruteForcePBE(sys.argv[1]) if len(sys.argv) < 3 and sys.argv[2].isdigit() else BruteForcePBE(sys.argv[1], int(sys.argv[2]))
+    solver = BruteForcePBE() if len(sys.argv) < 2 else BruteForcePBE(sys.argv[1], int(sys.argv[2])) if len(sys.argv) >= 3 and sys.argv[2].isdigit() else BruteForcePBE(sys.argv[1])
     solver.solve()
     solver.save()
 
 def run_tests():
     for i in range(1, 4):
-        solver = BruteForcePBE("test{}.txt".format(i)) if len(sys.argv) < 3 and sys.argv[2].isdigit() else BruteForcePBE("test{}.txt".format(i), int(sys.argv[2]))
+        solver = BruteForcePBE("test{}.txt".format(i), int(sys.argv[2])) if len(sys.argv) >= 3 and sys.argv[2].isdigit() else BruteForcePBE("test{}.txt".format(i))
         solver.solve()
         solver.save("test{}_solutions.txt".format(i))
 
