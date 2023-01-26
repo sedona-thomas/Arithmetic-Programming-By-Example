@@ -6,11 +6,11 @@ Run with `python main.py [optional file] [optional maximum integer searched] [op
 Run premade test cases `python main.py x 10 x`  
 
 Parameters:
-> File: contains lines with two integers separated by a space where the first integer is an input and the second integer is the corresponding output  
-> Maximum integer searched: specifies the range of possible values for addition, subtraction, multiplication, and division (by default, -10 to 10)  
-> Testing mode: if anything is specified, runs tests for test files  
+- File: contains lines with two integers separated by a space where the first integer is an input and the second integer is the corresponding output  
+- Maximum integer searched: specifies the range of possible values for addition, subtraction, multiplication, and division (by default, -10 to 10)  
+- Testing mode: if anything is specified, runs tests for test files  
 
 Default values:
-> File: "inputs.txt"  
-> Maximum integer searched: 10  
-> Testing mode: off unless specified  
+- File: "inputs.txt"  
+- Maximum integer searched: 10  
+- Testing mode: off unless specified  
