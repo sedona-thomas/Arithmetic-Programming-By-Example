@@ -5,7 +5,7 @@ Determines all valid combinations of addition, subtraction, multiplication, and 
 Run for "input.txt" with `python main.py`  
 
 Run with `python main.py [optional file] [optional maximum integer searched] [optional testing mode]`  
-Run premade test cases `python main.py x x x`  
+Run premade test cases with `python main.py x x x`  
 
 Parameters:
 - File: contains lines with two integers separated by a space where the first integer is an input and the second integer is the corresponding output  
