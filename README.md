@@ -1,6 +1,6 @@
 # Brute-Force-Programming-By-Example
 
-Determines all valid combinations of addition, subtraction, multiplication, and division within a specified range for given examples. Outputs are in the format `x * a // b + c`.  
+Determines all valid combinations of addition, subtraction, multiplication, and division within a specified range for given examples. Outputs are in the format `x * a // b + c`. (In order to keep the problem simple and since they could be made into the form `x * a // b + c`, equivalent cases in the form of `(x + a) * b // c` have been ignored.)  
 
 Run for "input.txt" with `python main.py`  
 
