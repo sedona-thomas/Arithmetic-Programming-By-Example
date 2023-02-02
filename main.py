@@ -9,6 +9,7 @@
 import sys
 from arith_expr_pbe import ArithExprPBE
 
+
 def run():
     if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
         solver = ArithExprPBE(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
@@ -25,10 +26,13 @@ def run():
 
 
 def run_tests():
-    for i in range(1, 4):
+    number_of_tests = 3
+    for i in range(1, number_of_tests + 1):
         if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
             solver = ArithExprPBE("test{}.txt".format(
                 i), int(sys.argv[2]), int(sys.argv[3]))
+        elif len(sys.argv) > 3 and sys.argv[3].isdigit():
+            solver = ArithExprPBE("test{}.txt".format(i), 2, int(sys.argv[3]))
         elif len(sys.argv) > 2 and sys.argv[2].isdigit():
             solver = ArithExprPBE("test{}.txt".format(i), int(sys.argv[2]))
         else:

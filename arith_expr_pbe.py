@@ -10,21 +10,27 @@
 
 class ArithExprPBE(object):
 
-    def __init__(self, file: str = "inputs.txt", max_depth: int = 5, max_int: int = 10):
-        self.__define_terminals(max_int)
+    def __init__(self, file: str = "inputs.txt", max_depth: int = 2, max_int: int = 10):
+        self.non_terminals = {
+            "({}) + {}": int,
+            "({}) - {}": int,
+            "({}) * {}": int,
+            "({}) // {}": int
+        }
+        self.terminals = {"x"} | {str(i) for i in range(max_int)}
         self.max_depth = max_depth
         self.one_to_one = True
-        self.expressions = set()
         self.solutions = set()
         self.examples = {}
         self.__parse_file(file)
 
     def solve(self) -> None:
-        self.solutions |= self.terminals
         for i in range(self.max_depth):
-            self.__expand_expressions()
-        self.expressions |= {
-            expr for expr in self.expressions if self.__is_solution(expr)}
+            self.__expand_terminals()
+        self.solutions |= {expr
+                           for expr in self.terminals
+                           if self.__is_solution(expr)
+                           }
 
     def save(self, file: str = "solutions.txt") -> None:
         f = open(file, "w")
@@ -33,15 +39,6 @@ class ArithExprPBE(object):
         for solution in self.solutions:
             f.write(solution + "\n")
         f.close()
-
-    def __define_terminals(self, max_int):
-        self.non_terminals = {
-            "({}) + {}": int,
-            "({}) - {}": int,
-            "({}) * {}": int,
-            "({}) // {}": int
-        }
-        self.terminals = {"x"} | {str(i) for i in range(max_int)}
 
     def __parse_file(self, file: str) -> None:
         with open(file) as f:
@@ -52,12 +49,12 @@ class ArithExprPBE(object):
                     self.one_to_one = False
                 self.examples[input] = output
 
-    def __expand_expressions(self):
-        solutions |= {non_terminal.format(terminal_a, terminal_b)
-                      for non_terminal in self.non_terminals
-                      for terminal_a in self.solutions
-                      for terminal_b in self.solutions
-                      }
+    def __expand_terminals(self):
+        self.terminals |= {non_terminal.format(terminal_a, terminal_b)
+                           for non_terminal in self.non_terminals
+                           for terminal_a in self.terminals
+                           for terminal_b in self.terminals
+                           }
 
     def __is_solution(self, expr: str) -> bool:
         try:
