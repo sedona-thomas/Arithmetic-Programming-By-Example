@@ -39,7 +39,7 @@ class BruteForcePBE(object):
                 self.examples[input] = output
 
     def __validate(self, input: int, output: int) -> bool:
-        return self.examples[input] != output if input in self.examples.keys() else True
+        return self.examples[input] == output if input in self.examples.keys() else True
 
     def __is_solution(self, a: int, b: int, c: int) -> bool:
         if b == 0:

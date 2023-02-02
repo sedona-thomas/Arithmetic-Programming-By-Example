@@ -26,7 +26,7 @@ def run():
 
 
 def run_tests():
-    number_of_tests = 3
+    number_of_tests = 4
     for i in range(1, number_of_tests + 1):
         if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
             solver = ArithExprPBE("test{}.txt".format(
