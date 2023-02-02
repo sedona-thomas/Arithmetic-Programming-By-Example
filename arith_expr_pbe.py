@@ -74,7 +74,7 @@ class ArithExprPBE(object):
 
     def __expand_terminals(self):
         self.terminals |= {non_terminal.format(terminal_a, terminal_b)
-                           for non_terminal in self.non_terminals
+                           for non_terminal in self.non_terminals.keys()
                            for terminal_a in self.terminals
                            for terminal_b in self.terminals
                            }
