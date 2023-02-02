@@ -4,7 +4,7 @@ Determines all valid combinations of addition, subtraction, multiplication, and 
 
 `python main.py [optional file] [optional maximum search depth] [optional maximum positive integer searched] [optional testing mode]`
 
-Run `python main.py` for "input.txt"
+Run `python main.py` for "input.txt"  
 Run `python main.py x x x x` for premade test cases
 
 Parameters:
