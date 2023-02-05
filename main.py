@@ -7,38 +7,39 @@
 '''
 
 import sys
-from arith_expr_pbe import ArithExprPBE
+from arith_expr_brute_force_pbe import ArithExprBruteForcePBE
 
 
 def run():
     if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
-        solver = ArithExprPBE(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+        solver = ArithExprBruteForcePBE(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
     elif len(sys.argv) > 3 and sys.argv[3].isdigit():
-        solver = ArithExprPBE(sys.argv[1], 5, int(sys.argv[3]))
+        solver = ArithExprBruteForcePBE(sys.argv[1], 5, int(sys.argv[3]))
     elif len(sys.argv) > 2 and sys.argv[2].isdigit():
-        solver = ArithExprPBE(sys.argv[1], int(sys.argv[2]))
+        solver = ArithExprBruteForcePBE(sys.argv[1], int(sys.argv[2]))
     elif len(sys.argv) > 1:
-        solver = ArithExprPBE(sys.argv[1])
+        solver = ArithExprBruteForcePBE(sys.argv[1])
     else:
-        solver = ArithExprPBE()
+        solver = ArithExprBruteForcePBE()
     solver.solve()
     solver.save()
 
 
 def run_tests():
     number_of_tests = 4
+    test_file_location = "test_files/test{}.txt"
     for i in range(1, number_of_tests + 1):
         if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
-            solver = ArithExprPBE("test{}.txt".format(
+            solver = ArithExprBruteForcePBE(test_file_location.format(
                 i), int(sys.argv[2]), int(sys.argv[3]))
         elif len(sys.argv) > 3 and sys.argv[3].isdigit():
-            solver = ArithExprPBE("test{}.txt".format(i), 2, int(sys.argv[3]))
+            solver = ArithExprBruteForcePBE(test_file_location.format(i), 2, int(sys.argv[3]))
         elif len(sys.argv) > 2 and sys.argv[2].isdigit():
-            solver = ArithExprPBE("test{}.txt".format(i), int(sys.argv[2]))
+            solver = ArithExprBruteForcePBE(test_file_location.format(i), int(sys.argv[2]))
         else:
-            solver = ArithExprPBE("test{}.txt".format(i))
+            solver = ArithExprBruteForcePBE(test_file_location.format(i))
         solver.solve()
-        solver.save("test{}_solutions.txt".format(i))
+        solver.save(test_file_location.format(i))
 
 
 def main():

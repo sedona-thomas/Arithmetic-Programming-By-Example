@@ -2,15 +2,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-class ArithExprPBE(object):
+from collections import defaultdict
+
+
+class ArithExprBottomUpPBE(object):
 
     """
-    ArithExprPBE finds solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division
+    ArithExprBottomUpPBE finds solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division
     """
 
     def __init__(self, file: str = "inputs.txt", max_depth: int = 2, max_int: int = 10):
         """
-        Construct a new 'ArithExprPBE' object.
+        Construct a new 'ArithExprBottomUpPBE' object.
         :return: returns nothing
         """
         self.non_terminals = {
@@ -79,10 +82,20 @@ class ArithExprPBE(object):
                            for terminal_b in self.terminals
                            }
 
+    def __eliminate_equivalents(self):
+        expr_to_term = defaultdict()
+        for expr in self.terminals:
+            expr_to_term[(self.__evaluate(expr, input) for input in self.examples.keys())].append(expr)
+
+        self.terminals = {}
+
+    def __evaluate(self, expr, input):
+        return eval(expr.replace("x", str(input)))
+
     def __is_solution(self, expr: str) -> bool:
         try:
             for input, output in self.examples.items():
-                if eval(expr.replace("x", str(input))) != output:
+                if self.__evaluate(expr, input) != output:
                     return False
             return True
         except ZeroDivisionError:

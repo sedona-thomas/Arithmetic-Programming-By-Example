@@ -8,7 +8,7 @@
 
 import sys
 
-class BruteForcePBE(object):
+class SimpleArithExprBruteForcePBE(object):
 
     def __init__(self, file: str = "inputs.txt", limit: int = 10):
         self.examples = {}
