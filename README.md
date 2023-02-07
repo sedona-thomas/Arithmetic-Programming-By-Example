@@ -1,6 +1,6 @@
 # Brute-Force-Programming-By-Example
 
-Determines all valid combinations of addition, subtraction, multiplication, and division within a specified range for given examples. "arith_expr_pbe.py" contains the ArithExprPBE class which "main.py" uses to generate these equations.
+Determines all valid combinations of addition, subtraction, multiplication, and division within a specified range for given examples.
 
 `python main.py [optional file] [optional maximum search depth] [optional maximum positive integer searched] [optional testing mode]`
 
@@ -18,3 +18,15 @@ Default values:
 - Maximum search depth: 2
 - Maximum positive integer searched: 10  
 - Testing mode: off unless specified  
+
+## Assignment 1
+
+Implementation: "arith_expr_brute_force_pbe.py"
+
+The ArithExprBruteForcePBE class uses brute force to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division.
+
+## Assignment 2
+
+Implementation: "arith_expr_bottom_up_pbe.py"
+
+The ArithExprBottomUpPBE class uses a bottom up approach to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. Equivalent expressions for the given inputs are eliminated such that the remaining expression has the smallest number of operators.
