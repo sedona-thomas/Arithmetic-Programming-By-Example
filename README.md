@@ -23,10 +23,22 @@ Default values:
 
 Implementation: "arith_expr_brute_force_pbe.py"
 
-The ArithExprBruteForcePBE class uses brute force to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division.
+The ArithExprBruteForcePBE class uses brute force to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. Returns all found solutions.
 
 ## Assignment 2
 
 Implementation: "arith_expr_bottom_up_pbe.py"
 
-The ArithExprBottomUpPBE class uses a bottom up approach to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. Equivalent expressions for the given inputs are eliminated such that the remaining expression has the smallest number of operators.
+The ArithExprBottomUpPBE class uses a bottom up approach to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. 
+
+`Synthesize(inputs, outputs):
+plist := set of all terminals
+while(true):
+plist := grow(plist);
+plist := elimEquvalents(plist, inputs);
+forall( p in plist)
+if(isCorrect(p, inputs, outputs)): return p;`
+
+Operationally equivalent expressions for the given inputs are eliminated such that the remaining expression has the smallest number of operators.
+
+
