@@ -12,6 +12,10 @@ from arith_expr_bottom_up_pbe import ArithExprBottomUpPBE
 
 assignment = 2
 
+number_of_tests = 4
+test_file_location = "test_files/test{}.txt"
+test_solutions_location = "test_files/test{}_solutions.txt"
+
 def run_assignment_2():
     if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
         solver = ArithExprBottomUpPBE(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
@@ -28,8 +32,6 @@ def run_assignment_2():
 
 
 def run_assignment_2_tests():
-    number_of_tests = 4
-    test_file_location = "test_files/test{}.txt"
     for i in range(1, number_of_tests + 1):
         if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
             solver = ArithExprBottomUpPBE(test_file_location.format(
@@ -41,7 +43,7 @@ def run_assignment_2_tests():
         else:
             solver = ArithExprBottomUpPBE(test_file_location.format(i))
         solver.solve()
-        solver.save(test_file_location.format(i))
+        solver.save(test_solutions_location.format(i))
 
 
 def run_assignment_1():
@@ -60,8 +62,6 @@ def run_assignment_1():
 
 
 def run_assignment_1_tests():
-    number_of_tests = 4
-    test_file_location = "test_files/test{}.txt"
     for i in range(1, number_of_tests + 1):
         if len(sys.argv) > 3 and sys.argv[2].isdigit() and sys.argv[3].isdigit():
             solver = ArithExprBruteForcePBE(test_file_location.format(
@@ -73,7 +73,7 @@ def run_assignment_1_tests():
         else:
             solver = ArithExprBruteForcePBE(test_file_location.format(i))
         solver.solve()
-        solver.save(test_file_location.format(i))
+        solver.save(test_solutions_location.format(i))
 
 
 def main():
