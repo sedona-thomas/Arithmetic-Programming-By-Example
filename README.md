@@ -31,6 +31,7 @@ Implementation: "arith_expr_bottom_up_pbe.py"
 
 The ArithExprBottomUpPBE class uses a bottom up approach to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. 
 
+Implements the (bottom up synthesis algorithm)[https://people.csail.mit.edu/asolar/SynthesisCourse/Lecture3.htm] below
 ```
 Synthesize(inputs, outputs):
     plist := set of all terminals
