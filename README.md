@@ -31,13 +31,15 @@ Implementation: "arith_expr_bottom_up_pbe.py"
 
 The ArithExprBottomUpPBE class uses a bottom up approach to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. 
 
-```Synthesize(inputs, outputs):
+```
+Synthesize(inputs, outputs):
 plist := set of all terminals
 while(true):
 plist := grow(plist);
 plist := elimEquvalents(plist, inputs);
 forall( p in plist)
-if(isCorrect(p, inputs, outputs)): return p;```
+if(isCorrect(p, inputs, outputs)): return p;
+```
 
 Operationally equivalent expressions for the given inputs are eliminated such that the remaining expression has the smallest number of operators.
 
