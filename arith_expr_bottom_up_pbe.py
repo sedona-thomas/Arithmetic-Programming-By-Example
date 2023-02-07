@@ -16,12 +16,9 @@ class ArithExprBottomUpPBE(object):
         Construct a new 'ArithExprBottomUpPBE' object.
         :return: returns nothing
         """
+        self.operators = ["+", "-", "*", "//"]
         self.non_terminals = {
-            "({}) + {}": int,
-            "({}) - {}": int,
-            "({}) * {}": int,
-            "({}) // {}": int
-        }
+            "({}) " + op + " {}": int for op in self.operators}
         self.terminals = {"x"} | {str(i) for i in range(max_int)}
         self.max_depth = max_depth
         self.one_to_one = True
@@ -35,10 +32,9 @@ class ArithExprBottomUpPBE(object):
         """
         for i in range(self.max_depth):
             self.__expand_terminals()
-        self.solutions |= {expr
-                           for expr in self.terminals
-                           if self.__is_solution(expr)
-                           }
+            self.__eliminate_equivalents()
+        self.solutions |= {
+            expr for expr in self.terminals if self.__is_solution(expr)}
 
     def solve_quick(self) -> str:
         """
@@ -50,6 +46,7 @@ class ArithExprBottomUpPBE(object):
                 if self.__is_solution(expr):
                     return expr
             self.__expand_terminals()
+            self.__eliminate_equivalents()
         return "Max search depth reached and no solution found"
 
     def save(self, file: str = "solutions.txt") -> None:
@@ -75,22 +72,31 @@ class ArithExprBottomUpPBE(object):
                         self.one_to_one = False
                     self.examples[input] = output
 
-    def __expand_terminals(self):
+    def __expand_terminals(self) -> None:
         self.terminals |= {non_terminal.format(terminal_a, terminal_b)
                            for non_terminal in self.non_terminals.keys()
                            for terminal_a in self.terminals
                            for terminal_b in self.terminals
                            }
 
-    def __eliminate_equivalents(self):
-        expr_to_term = defaultdict()
+    def __eliminate_equivalents(self) -> None:
+        output_to_expr = defaultdict(list)
         for expr in self.terminals:
-            expr_to_term[(self.__evaluate(expr, input) for input in self.examples.keys())].append(expr)
+            output_tuple = (self.__evaluate(expr, input)
+                            for input in self.examples.keys())
+            output_to_expr[output_tuple].append(expr)
 
-        self.terminals = {}
+        self.terminals = {self.__select_equivalent(
+            output_to_expr[output]) for output in output_to_expr.keys()}
 
-    def __evaluate(self, expr, input):
+    def __evaluate(self, expr: str, input: int) -> int:
         return eval(expr.replace("x", str(input)))
+
+    def __select_equivalent(self, expr_list: list) -> str:
+        return expr_list.sort(key=self.__count_operators)[0]
+
+    def __count_operators(self, expr: str) -> int:
+        return sum(map(expr.count, self.operators))
 
     def __is_solution(self, expr: str) -> bool:
         try:
