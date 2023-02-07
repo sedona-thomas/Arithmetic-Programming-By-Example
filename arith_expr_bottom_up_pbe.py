@@ -28,13 +28,15 @@ class ArithExprBottomUpPBE(object):
 
     def solve(self) -> None:
         """
-        Finds all arithmatic expression solutions for a given depth
+        Finds arithmatic expression solutions for a given depth
         """
         for i in range(self.max_depth):
             self.__expand_terminals()
             self.__eliminate_equivalents()
-        self.solutions |= {
-            expr for expr in self.terminals if self.__is_solution(expr)}
+            self.solutions |= {
+                expr for expr in self.terminals if self.__is_solution(expr)}
+            if len(self.solutions) > 0:
+                break
 
     def solve_quick(self) -> str:
         """
@@ -57,7 +59,7 @@ class ArithExprBottomUpPBE(object):
         """
         f = open(file, "w")
         if not self.one_to_one:
-            f.write("Invalid examples (multiple outputs for the same input)\n")
+            f.write("Invalid examples, impossible to solve (multiple outputs for the same input)\n")
         for solution in self.solutions:
             f.write(solution + "\n")
         f.close()
@@ -77,15 +79,15 @@ class ArithExprBottomUpPBE(object):
                            for non_terminal in self.non_terminals.keys()
                            for terminal_a in self.terminals
                            for terminal_b in self.terminals
+                           if not self.__is_division_by_zero(non_terminal.format(terminal_a, terminal_b))
                            }
 
     def __eliminate_equivalents(self) -> None:
         output_to_expr = defaultdict(list)
         for expr in self.terminals:
-            output_tuple = (self.__evaluate(expr, input)
-                            for input in self.examples.keys())
+            output_tuple = tuple(self.__evaluate(expr, input)
+                                 for input in self.examples.keys())
             output_to_expr[output_tuple].append(expr)
-
         self.terminals = {self.__select_equivalent(
             output_to_expr[output]) for output in output_to_expr.keys()}
 
@@ -100,13 +102,20 @@ class ArithExprBottomUpPBE(object):
         return sum(map(expr.count, self.operators))
 
     def __is_solution(self, expr: str) -> bool:
-        try:
+        if not self.__is_division_by_zero(expr):
             for input, output in self.examples.items():
                 if self.__evaluate(expr, input) != output:
                     return False
             return True
-        except ZeroDivisionError:
+        else:
             return False
+
+    def __is_division_by_zero(self, expr):
+        try:
+            self.__evaluate(expr, 0)
+            return False
+        except ZeroDivisionError:
+            return True
 
     def __is_one_to_one(self, input: int, output: int) -> bool:
         return self.examples[input] == output if input in self.examples.keys() else True
