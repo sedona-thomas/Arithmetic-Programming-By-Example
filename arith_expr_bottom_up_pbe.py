@@ -93,7 +93,8 @@ class ArithExprBottomUpPBE(object):
         return eval(expr.replace("x", str(input)))
 
     def __select_equivalent(self, expr_list: list) -> str:
-        return expr_list.sort(key=self.__count_operators)[0]
+        expr_list.sort(key=self.__count_operators)
+        return expr_list[0]
 
     def __count_operators(self, expr: str) -> int:
         return sum(map(expr.count, self.operators))
