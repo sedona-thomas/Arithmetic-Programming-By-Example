@@ -23,7 +23,11 @@ Default values:
 
 Implementation: "arith_expr_brute_force_pbe.py"
 
-The ArithExprBruteForcePBE class uses brute force to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. Returns all found solutions.
+The ArithExprBruteForcePBE class uses brute force to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division
+
+Generates possible solutions recursively by combining all previous possible solutions with each operator
+
+Returns all found solutions within the maximum depth
 
 ## Assignment 2
 
@@ -32,16 +36,32 @@ Implementation: "arith_expr_bottom_up_pbe.py"
 The ArithExprBottomUpPBE class uses a bottom up approach to find solutions by example for arithmatic expressions the positive integers for addition, multiplication, subtraction, and integer division. 
 
 Implements the [bottom up synthesis algorithm](https://people.csail.mit.edu/asolar/SynthesisCourse/Lecture3.htm) below
+
 ```
 Synthesize(inputs, outputs):
-    plist := set of all terminals
+    operators = "+"
+    plist = set(range(max_int)) | {"x"}
     while(true):
-        plist := grow(plist);
-        plist := elimEquvalents(plist, inputs);
-    forall( p in plist)
-        if(isCorrect(p, inputs, outputs)): return p;
+        plist = grow(plist)
+        plist = elimEquvalents(plist, inputs)
+    forall(p in plist):
+        if(isCorrect(p, inputs, outputs)): 
+            return p
+
+grow(plist):
+    forall(operator in operators)
+        forall(p1 in plist):
+            forall(p2 in plist):
+                plist.add(p1 + operator + p2)
+
+elimEquivalents(plist, inputs):
+    equivalents = findEquivalents(plist, inputs)
+    forall(li in equivalents):
+        forall(equivalentExpr in li):
+            if equivalentExpr is not minOperators(li):
+                plist.remove(equivalentExpr)
 ```
 
-Operationally equivalent expressions for the given inputs are eliminated such that the remaining expression has the smallest number of operators.
+Generates possible solutions recursively and removes all operationally equivalent expressions. The number of operators are minimized as operationally equivalent expressions are removed
 
-
+Returns the solution at the lowest depth with the smallest number of operators

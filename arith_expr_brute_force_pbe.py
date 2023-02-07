@@ -14,10 +14,10 @@ class ArithExprBruteForcePBE(object):
         :return: returns nothing
         """
         self.non_terminals = {
-            "({}) + {}": int,
-            "({}) - {}": int,
-            "({}) * {}": int,
-            "({}) // {}": int
+            "{} + {}": int,
+            "{} - {}": int,
+            "({}) * ({})": int,
+            "({}) // ({})": int
         }
         self.terminals = {"x"} | {str(i) for i in range(max_int)}
         self.max_depth = max_depth

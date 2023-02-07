@@ -18,7 +18,7 @@ class ArithExprBottomUpPBE(object):
         """
         self.operators = ["+", "-", "*", "//"]
         self.non_terminals = {
-            "({}) " + op + " {}": int for op in self.operators}
+            "({}) " + op + " ({})": int for op in self.operators}
         self.terminals = {"x"} | {str(i) for i in range(max_int)}
         self.max_depth = max_depth
         self.one_to_one = True
@@ -80,13 +80,14 @@ class ArithExprBottomUpPBE(object):
                            for terminal_a in self.terminals
                            for terminal_b in self.terminals
                            if not self.__is_division_by_zero(non_terminal.format(terminal_a, terminal_b))
+                           and self.__is_valid_on_inputs(non_terminal.format(terminal_a, terminal_b))
                            }
 
     def __eliminate_equivalents(self) -> None:
         output_to_expr = defaultdict(list)
         for expr in self.terminals:
             output_tuple = tuple(self.__evaluate(expr, input)
-                                 for input in self.examples.keys())
+                                for input in self.examples.keys())
             output_to_expr[output_tuple].append(expr)
         self.terminals = {self.__select_equivalent(
             output_to_expr[output]) for output in output_to_expr.keys()}
@@ -116,6 +117,14 @@ class ArithExprBottomUpPBE(object):
             return False
         except ZeroDivisionError:
             return True
+    
+    def __is_valid_on_inputs(self, expr):
+        try:
+            for input in self.examples.keys():
+                self.__evaluate(expr, input)
+            return True
+        except ZeroDivisionError:
+            return False
 
     def __is_one_to_one(self, input: int, output: int) -> bool:
         return self.examples[input] == output if input in self.examples.keys() else True

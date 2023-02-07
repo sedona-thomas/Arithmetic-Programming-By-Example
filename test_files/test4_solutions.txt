@@ -1,1 +1,1 @@
-Invalid examples (multiple outputs for the same input)
+Invalid examples, impossible to solve (multiple outputs for the same input)
