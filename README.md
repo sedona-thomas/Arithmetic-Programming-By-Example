@@ -62,6 +62,6 @@ elimEquivalents(plist, inputs):
                 plist.remove(equivalentExpr)
 ```
 
-Generates possible solutions recursively and removes all operationally equivalent expressions. The number of operators are minimized as operationally equivalent expressions are removed
+Repeatedly expands possible solutions and removes all operationally equivalent expressions. The number of operators are minimized as operationally equivalent expressions are removed
 
 Returns the solution at the lowest depth with the smallest number of operators
